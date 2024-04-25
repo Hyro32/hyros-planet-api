@@ -3,13 +3,26 @@
   "version": "1.0.50",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "format": "prettier --write src/**/*.ts",
+    "prepare": "husky"
   },
   "dependencies": {
-    "elysia": "latest"
+    "@elysiajs/swagger": "^1.0.4",
+    "elysia": "latest",
+    "mongoose": "^8.3.2",
+    "redis": "^4.6.13"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2",
+    "prettier": "^3.2.5"
   },
-  "module": "src/index.js"
+  "module": "src/index.js",
+  "lint-staged": {
+    "*.{js,ts,json}": [
+      "prettier --write"
+    ]
+  }
 }

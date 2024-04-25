@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+  mongo:
+    container_name: hyros-planet-mongo
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_DATABASE: hyros-planet
+    volumes:
+      - ./mongo:/data/db
+  redis:
+    container_name: hyros-planet-cache
+    restart: always
+    image: redis:latest
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - ./redis:/data
+    environment:
+      - REDIS_ARGS=--requirepass ${REDIS_PASSWORD}
+    depends_on:
+      - mongo
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_USERNAME=${REDIS_USERNAME}
+    depends_on:
+      - redis
+    ports:
+      - '8081:8081'
+  app:
+    image: 'oven/bun'
+    entrypoint: []
+    command: "/bin/sh -c 'bun install && bun run --watch src/index.ts'"
+    ports:
+      - '3000:3000'
+    volumes:
+      - './:/home/bun/app'
