@@ -1,5 +1,6 @@
 import { Elysia } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
+import { databaseConnection } from './database';
 import { players, sanctions } from './groups';
 
 const app = new Elysia()
@@ -13,6 +14,8 @@ const app = new Elysia()
     }
   })
   .listen(3000);
+
+databaseConnection();
 
 console.log(
   `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`,

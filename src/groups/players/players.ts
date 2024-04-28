@@ -4,53 +4,59 @@ import { CreatePlayerDto } from './dto/create.dto';
 import { UpdatePlayerDto } from './dto/update.dto';
 import { PlayersService } from './service';
 
+const commonParams = {
+  params: t.Object({
+    uuid: PlayerUuid,
+  }),
+};
+
 export const players = new Elysia({ prefix: '/players' })
-  .decorate({ Service: new PlayersService() })
-  .get('/', async ({ Service }) => await Service.getPlayers())
+  .decorate({ playersService: new PlayersService() })
+  .get('/', async ({ playersService }) => await playersService.getPlayers())
   .get(
     '/:uuid',
-    async ({ Service, params: { uuid } }) => await Service.getPlayer(uuid),
-    {
-      params: t.Object({
-        uuid: PlayerUuid,
-      }),
+    async ({ playersService, params: { uuid }, set }) => {
+      const player = await playersService.getPlayer(uuid, set);
+      return JSON.stringify(player);
     },
+    commonParams,
   )
   .get(
     'locale/:uuid',
-    async ({ Service, params: { uuid } }) => Service.getLocale(uuid),
+    async ({ playersService, params: { uuid }, set }) => {
+      await playersService.getLocale(uuid, set);
+    },
+    commonParams,
+  )
+  .post(
+    '/',
+    async ({ playersService, body }) => await playersService.createPlayer(body),
     {
-      params: t.Object({
+      body: CreatePlayerDto,
+    },
+  )
+  .post(
+    'locale',
+    async ({ playersService, body }) => await playersService.setLocale(body),
+    {
+      body: t.Object({
         uuid: PlayerUuid,
+        locale: t.String(),
       }),
     },
   )
-  .post('/', async ({ Service, body }) => await Service.createPlayer(body), {
-    body: CreatePlayerDto,
-  })
-  .post('locale', async ({ Service, body }) => await Service.setLocale(body), {
-    body: t.Object({
-      uuid: PlayerUuid,
-      locale: t.String(),
-    }),
-  })
   .patch(
     '/:uuid',
-    async ({ Service, params: { uuid }, body }) =>
-      await Service.updatePlayer(uuid, body),
+    async ({ playersService, params: { uuid }, body }) =>
+      await playersService.updatePlayer(uuid, body),
     {
-      params: t.Object({
-        uuid: PlayerUuid,
-      }),
+      ...commonParams,
       body: UpdatePlayerDto,
     },
   )
   .delete(
     '/:uuid',
-    async ({ Service, params: { uuid } }) => await Service.deletePlayer(uuid),
-    {
-      params: t.Object({
-        uuid: PlayerUuid,
-      }),
-    },
+    async ({ playersService, params: { uuid } }) =>
+      await playersService.deletePlayer(uuid),
+    commonParams,
   );

@@ -2,6 +2,7 @@ import { t } from 'elysia';
 
 export const PlayerUuid = t.String({
   pattern: '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$',
+  default: null
 });
 
 export enum Locales {

@@ -9,5 +9,3 @@ export async function databaseConnection() {
     console.error(error);
   }
 }
-
-(async () => await databaseConnection())();

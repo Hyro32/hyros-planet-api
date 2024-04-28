@@ -15,10 +15,10 @@ export class SanctionsService {
   }
 
   async updateSanction(id: number, body: Sanction): Promise<void> {
-    await SanctionModel.findOneAndUpdate({ _id: id }, body);
+    await SanctionModel.findOneAndUpdate({ id }, body);
   }
 
   async deleteSanction(id: number): Promise<void> {
-    await SanctionModel.findOneAndDelete({ _id: id });
+    await SanctionModel.findOneAndDelete({ id });
   }
 }

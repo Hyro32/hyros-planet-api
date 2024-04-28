@@ -2,27 +2,35 @@ import { Elysia, t } from 'elysia';
 import { CreateSanctionDto } from './dto/create.dto';
 import { SanctionsService } from './service';
 
+const commonParams = {
+  params: t.Object({
+    id: t.Number(),
+  }),
+};
+
 export const sanctions = new Elysia({ prefix: 'sanctions' })
-  .decorate({ Service: new SanctionsService() })
-  .get('/', async ({ Service }) => await Service.getSanctions())
+  .decorate({ sanctionsService: new SanctionsService() })
+  .get(
+    '/',
+    async ({ sanctionsService }) => await sanctionsService.getSanctions(),
+  )
   .get(
     '/:id',
-    async ({ Service, params: { id } }) => await Service.getSanction(id),
+    async ({ sanctionsService, params: { id } }) =>
+      await sanctionsService.getSanction(id),
+    commonParams,
+  )
+  .post(
+    '/',
+    async ({ sanctionsService, body }) =>
+      await sanctionsService.createSanction(body),
     {
-      params: t.Object({
-        id: t.Number(),
-      }),
+      body: CreateSanctionDto,
     },
   )
-  .post('/', async ({ Service, body }) => await Service.createSanction(body), {
-    body: CreateSanctionDto,
-  })
   .delete(
     '/:id',
-    async ({ Service, params: { id } }) => await Service.deleteSanction(id),
-    {
-      params: t.Object({
-        id: t.Number(),
-      }),
-    },
+    async ({ sanctionsService, params: { id } }) =>
+      await sanctionsService.deleteSanction(id),
+    commonParams,
   );
