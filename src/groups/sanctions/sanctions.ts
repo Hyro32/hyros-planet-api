@@ -4,7 +4,7 @@ import { SanctionsService } from './service';
 
 const commonParams = {
   params: t.Object({
-    id: t.Number(),
+    id: t.String(),
   }),
 };
 
@@ -16,8 +16,8 @@ export const sanctions = new Elysia({ prefix: 'sanctions' })
   )
   .get(
     '/:id',
-    async ({ sanctionsService, params: { id } }) =>
-      await sanctionsService.getSanction(id),
+    async ({ sanctionsService, params: { id }, set }) =>
+      await sanctionsService.getSanction(id, set),
     commonParams,
   )
   .post(

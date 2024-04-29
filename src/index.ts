@@ -1,13 +1,14 @@
 import { Elysia } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
 import { databaseConnection } from './database';
-import { players, sanctions } from './groups';
+import { players, sanctions, users } from './groups';
 
 const app = new Elysia()
   .use(swagger())
   .get('/', () => 'Hello Elysia')
   .use(players)
   .use(sanctions)
+  .use(users)
   .onError(({ code }) => {
     if (code === 'NOT_FOUND') {
       return 'Route not found';

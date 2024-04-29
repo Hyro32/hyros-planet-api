@@ -7,11 +7,16 @@ export interface Player {
 }
 
 export interface Sanction {
-  _id?: number;
   target_uuid: string;
   agent_uuid?: string;
   type: string;
   reason: string;
   created_at: Date;
   expires_at?: Date;
+}
+
+export interface User {
+  email: string;
+  password: string;
+  uuid: string;
 }
