@@ -1,9 +1,9 @@
 export interface Player {
   uuid: string;
-  locale?: string;
-  rank?: string;
+  locale: string;
+  rank: string;
   first_joined: Date;
-  last_joined?: Date;
+  last_joined: Date;
 }
 
 export interface Sanction {
