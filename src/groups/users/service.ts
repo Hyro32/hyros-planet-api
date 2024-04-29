@@ -31,6 +31,7 @@ export class UsersService {
   }
 
   async createUser(body: ICreateUserDto): Promise<void> {
+    body.password = await Bun.password.hash(body.password);
     await UsersModel.create(body);
   }
 

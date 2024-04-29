@@ -1,11 +1,12 @@
 import { Elysia } from 'elysia';
 import { swagger } from '@elysiajs/swagger';
 import { databaseConnection } from './database';
-import { players, sanctions, users } from './groups';
+import { auth, players, sanctions, users } from './groups';
 
 const app = new Elysia()
   .use(swagger())
   .get('/', () => 'Hello Elysia')
+  .use(auth)
   .use(players)
   .use(sanctions)
   .use(users)

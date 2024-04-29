@@ -5,10 +5,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/index.ts",
-    "format": "prettier --write src/**/*.ts",
-    "prepare": "husky"
+    "format": "prettier --write src/**/*.ts"
   },
   "dependencies": {
+    "@elysiajs/jwt": "^1.0.2",
     "@elysiajs/swagger": "^1.0.4",
     "elysia": "latest",
     "mongoose": "^8.3.2",
