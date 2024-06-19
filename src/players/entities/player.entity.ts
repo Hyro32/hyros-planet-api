@@ -1,5 +1,5 @@
 import { Ranks } from 'src/common';
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Player {
@@ -20,4 +20,7 @@ export class Player {
 
   @Column({ default: null, nullable: true })
   last_joined: Date;
+
+  @ManyToMany(() => Player, (player) => player.uuid)
+  friends: Player[];
 }

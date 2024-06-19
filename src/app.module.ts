@@ -3,6 +3,8 @@ import { PlayersModule } from './players/players.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Player } from './players/entities/player.entity';
+import { ModerationModule } from './moderation/moderation.module';
+import { Ban } from './moderation/entities/ban.entity';
 import * as Joi from 'joi';
 
 @Module({
@@ -26,11 +28,12 @@ import * as Joi from 'joi';
         username: configService.get<string>('DB_USERNAME'),
         password: configService.get<string>('DB_PASSWORD'),
         database: configService.get<string>('DB_DATABASE'),
-        entities: [Player],
+        entities: [Player, Ban],
         synchronize: true,
       }),
     }),
     PlayersModule,
+    ModerationModule,
   ],
   controllers: [],
   providers: [],

@@ -6,6 +6,7 @@ import {
   IsString,
 } from 'class-validator';
 import { Ranks } from 'src/common';
+import { Player } from '../entities/player.entity';
 
 export class CreatePlayerDto {
   @IsString()
@@ -31,4 +32,7 @@ export class CreatePlayerDto {
   @IsDateString()
   @IsOptional()
   last_joined: Date;
+
+  @IsOptional()
+  friends: Player[];
 }
