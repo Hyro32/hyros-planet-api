@@ -24,6 +24,7 @@
   "dependencies": {
     "@grpc/grpc-js": "^1.10.8",
     "@nestjs/common": "^9.0.0",
+    "@nestjs/config": "^3.2.3",
     "@nestjs/core": "^9.0.0",
     "@nestjs/microservices": "^10.3.8",
     "@nestjs/platform-express": "^9.0.0",
@@ -36,6 +37,7 @@
     "class-validator": "^0.14.1",
     "farmup": "^0.0.12",
     "ioredis": "^5.4.1",
+    "joi": "^17.13.3",
     "kafkajs": "^2.2.4",
     "mqtt": "^5.6.1",
     "nats": "^2.26.0",
