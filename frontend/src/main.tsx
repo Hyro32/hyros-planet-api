@@ -1,3 +1,5 @@
+import Router from "./router/router";
+
 export default function Main() {
-  return <h1>Frontend</h1>;
+  return <Router />;
 }
