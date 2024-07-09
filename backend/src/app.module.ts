@@ -2,6 +2,13 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import {
+  CacheModule,
+  CacheModuleAsyncOptions,
+  CacheStore,
+} from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-store';
+import { CachingModule } from './caching/caching.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -33,6 +40,25 @@ import * as Joi from 'joi';
         synchronize: true,
       }),
     }),
+    CacheModule.registerAsync<CacheModuleAsyncOptions>({
+      inject: [ConfigService],
+      imports: [ConfigModule],
+      useFactory: async (configuration: ConfigService) => {
+        const store = await redisStore({
+          socket: {
+            host: configuration.get('REDIS_HOST'),
+            port: +configuration.get('REDIS_PORT'),
+          },
+          username: configuration.get('REDIS_USERNAME'),
+          password: configuration.get('REDIS_PASSWORD'),
+        });
+        return {
+          store: store as unknown as CacheStore,
+        };
+      },
+      isGlobal: true,
+    }),
+    CachingModule,
   ],
   controllers: [],
   providers: [],
