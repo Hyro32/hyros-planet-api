@@ -1,0 +1,21 @@
+---
+import { Icon } from 'astro-icon/components';
+const { isLogged = false } = Astro.props;
+---
+
+<a href={isLogged ? '/login' : '/logout'}>
+  {
+    isLogged ? (
+      <div class="text-center bg-green-700 px-4 py-1 rounded-md">
+        <p class="flex items-center gap-2">
+          Logged in as <strong>John Doe</strong>
+        </p>
+      </div>
+    ) : (
+      <div class="flex items-center gap-2 bg-green-700 px-4 py-1 rounded-md">
+        <Icon name="ri:microsoft-fill" class="size-5" />
+        <span>Login with Microsoft</span>
+      </div>
+    )
+  }
+</a>

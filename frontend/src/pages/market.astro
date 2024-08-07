@@ -1,0 +1,8 @@
+---
+import SidebarLayout from '@layouts/SidebarLayout.astro';
+import ItemsMarket from '@components/react/Market';
+---
+
+<SidebarLayout>
+  <ItemsMarket client:only="react" slot="main" />
+</SidebarLayout>

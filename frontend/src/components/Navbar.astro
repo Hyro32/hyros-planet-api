@@ -1,5 +1,5 @@
 ---
-import AccountAvatar from "./AccountAvatar.astro";
+import Account from "./Account.astro";
 
 const selectedPage = Astro.url.pathname.slice(1);
 const pages = ["Store", "Market"];
@@ -24,6 +24,6 @@ const pages = ["Store", "Market"];
         </li>
       ))
     }
-    <AccountAvatar />
+    <Account />
   </ul>
 </nav>

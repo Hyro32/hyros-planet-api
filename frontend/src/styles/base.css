@@ -1,3 +1,3 @@
 body {
-  @apply m-auto bg-background py-16 text-white/70 max-w-6xl font-barlow;
+  @apply m-auto bg-background py-16 text-white/70 max-w-6xl font-barlow w-[90%];
 }

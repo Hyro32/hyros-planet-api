@@ -1,0 +1,27 @@
+---
+import LevelProgress from '@components/progress/LevelProgress.astro';
+
+const {
+  username = 'Hyro',
+  rank = 'Owner',
+  coins = 10000,
+  level = 45,
+  first_joined = new Date('2021-01-01'),
+  last_joined = new Date('2021-01-01'),
+} = Astro.props;
+---
+
+<div class="flex flex-col gap-2">
+  <h3 class="text-lg">{username}'s profile</h3>
+  <div class="flex items-center justify-center gap-4 p-2 bg-gray-500/25 rounded-md">
+    <div class="flex flex-col">
+      <p>Rank: {rank}</p>
+      <p>Coins: {coins}</p>
+      <p>First joined: {first_joined.toLocaleDateString()}</p>
+      <p>Last joined: {last_joined.toLocaleDateString()}</p>
+    </div>
+    <div class="flex items-center justify-center h-full">
+      <LevelProgress {level} />
+    </div>
+  </div>
+</div>
