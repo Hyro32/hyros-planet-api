@@ -1,0 +1,29 @@
+---
+import AccountAvatar from "./AccountAvatar.astro";
+
+const selectedPage = Astro.url.pathname.slice(1);
+const pages = ["Store", "Market", "Forum"];
+---
+
+<nav class="flex items-center justify-between pb-10">
+  <a href="/" class="font-bold text-xl">LOGO</a>
+  <ul class="flex items-center gap-6">
+    {
+      pages.map((page) => (
+        <li>
+          <a
+            href={"/" + page.toLowerCase()}
+            class={
+              selectedPage === page.toLowerCase()
+                ? "underline decoration-2 underline-offset-4 decoration-white/75"
+                : ""
+            }
+          >
+            {page}
+          </a>
+        </li>
+      ))
+    }
+    <AccountAvatar />
+  </ul>
+</nav>

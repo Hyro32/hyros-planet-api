@@ -1,30 +1,28 @@
 {
-  "name": "react-template",
-  "version": "1.0.0",
+  "name": "frontend",
+  "type": "module",
+  "version": "0.0.1",
   "scripts": {
-    "dev": "farm start",
-    "start": "farm start",
-    "build": "farm build",
-    "preview": "farm preview",
-    "clean": "farm clean"
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
   },
   "dependencies": {
-    "@fontsource-variable/lexend": "^5.0.20",
-    "react": "18",
-    "react-dom": "18",
-    "react-router-dom": "^6.24.1"
+    "@astrojs/check": "^0.9.2",
+    "@astrojs/mdx": "^3.1.3",
+    "@astrojs/tailwind": "^5.1.0",
+    "@fontsource/barlow": "^5.0.13",
+    "astro": "^4.13.1",
+    "astro-capo": "^0.0.1",
+    "tailwindcss": "^3.4.7",
+    "typescript": "^5.5.4"
   },
   "devDependencies": {
-    "@farmfe/cli": "^1.0.2",
-    "@farmfe/core": "^1.2.4",
-    "@farmfe/js-plugin-postcss": "^1.7.0",
-    "@farmfe/plugin-react": "^1.1.0",
-    "@types/react": "18",
-    "@types/react-dom": "18",
-    "autoprefixer": "^10.4.19",
-    "core-js": "^3.36.1",
-    "postcss": "^8.4.39",
-    "react-refresh": "^0.14.0",
-    "tailwindcss": "^3.4.4"
+    "eslint": "^8.0.1",
+    "eslint-plugin-astro": "^1.2.3",
+    "prettier": "^3.3.3",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }

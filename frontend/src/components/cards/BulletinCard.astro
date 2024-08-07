@@ -1,0 +1,24 @@
+---
+const { annc } = Astro.props;
+---
+
+<a
+  href={'bulletin/' + annc.slug}
+  class="flex flex-col gap-4 p-3 border border-gray-500 rounded-sm"
+>
+  <div class="flex items-start justify-between w-full">
+    <div>
+      <h4 class="text-xl font-semibold">{annc.data.title}</h4>
+      <p>{annc.data.description}</p>
+    </div>
+    <div class="text-end">
+      <time>{annc.data.date.toLocaleDateString()}</time>
+      <p>{annc.data.author}</p>
+    </div>
+  </div>
+  <img
+    src={annc.data.image}
+    alt="test"
+    class="w-full h-[200px] object-cover rounded-sm"
+  />
+</a>

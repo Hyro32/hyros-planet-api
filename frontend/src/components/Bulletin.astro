@@ -1,0 +1,11 @@
+---
+import { getCollection } from "astro:content";
+import BulletinCard from "./cards/BulletinCard.astro";
+
+const bulletin = await getCollection("bulletin");
+---
+
+<div class="flex flex-col gap-4 w-full rounded-md">
+  <h3 class="text-lg">Announcements Bulletin</h3>
+  {bulletin.map((annc: any) => <BulletinCard {annc} />)}
+</div>

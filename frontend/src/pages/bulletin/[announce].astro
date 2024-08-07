@@ -1,0 +1,24 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getCollection, type CollectionEntry } from 'astro:content'
+
+export const getStaticPaths = (async () => {
+  const bulletin = await getCollection('bulletin')
+
+  return bulletin.map((annc) => {
+    return {
+      params: { announce: annc.slug },
+      props: { annc }
+    }
+  })
+}) satisfies GetStaticPaths
+
+interface Props {
+  annc: CollectionEntry<'bulletin'>
+}
+
+const { annc } = Astro.props
+const { Content } = await annc.render()
+---
+
+<Content />
