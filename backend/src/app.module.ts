@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import {
   CacheModule,
@@ -9,6 +8,7 @@ import {
 } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-store';
 import { CachingModule } from './caching/caching.module';
+import { PlayersModule } from './players/players.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -59,6 +59,7 @@ import * as Joi from 'joi';
       isGlobal: true,
     }),
     CachingModule,
+    PlayersModule,
   ],
   controllers: [],
   providers: [],
