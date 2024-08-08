@@ -1,16 +1,14 @@
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { CreatePlayerDto } from './dto/create-player.dto';
 import { UpdatePlayerDto } from './dto/update-player.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Player } from './entities/player.entity';
 import { Repository } from 'typeorm';
-import { CachingService } from 'src/caching/caching.service';
 
 @Injectable()
-export class PlayersService implements OnApplicationBootstrap {
+export class PlayersService {
   constructor(
     @InjectRepository(Player) private playersRepository: Repository<Player>,
-    private readonly cache: CachingService,
   ) {}
 
   create(createPlayerDto: CreatePlayerDto): Promise<Player> {
@@ -19,7 +17,11 @@ export class PlayersService implements OnApplicationBootstrap {
   }
 
   findAll(): Promise<Player[]> {
-    return this.playersRepository.find();
+    return this.playersRepository.find({
+      relations: {
+        economy: true,
+      },
+    });
   }
 
   findOne(uuid: string): Promise<Player> {
@@ -36,11 +38,5 @@ export class PlayersService implements OnApplicationBootstrap {
 
   remove(uuid: string): Promise<unknown> {
     return this.playersRepository.delete(uuid);
-  }
-
-  async onApplicationBootstrap(): Promise<void> {
-    for (const player of await this.findAll()) {
-      this.cache.setKey(player.uuid, player);
-    }
   }
 }

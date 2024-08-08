@@ -20,7 +20,7 @@ services:
     ports:
       - ${REDIS_PORT}:6379
     volumes: 
-      - ./redis:/data
+      - redis:/data
     environment:
       - REDIS_ARGS=--requirepass ${REDIS_PASSWORD}
 

@@ -9,6 +9,9 @@ import {
 import { redisStore } from 'cache-manager-redis-store';
 import { CachingModule } from './caching/caching.module';
 import { PlayersModule } from './players/players.module';
+import { EconomyModule } from './economy/economy.module';
+import { Player } from './players/entities/player.entity';
+import { Economy } from './economy/entities/economy.entity';
 import * as Joi from 'joi';
 
 @Module({
@@ -36,7 +39,7 @@ import * as Joi from 'joi';
         username: configuration.get<string>('DB_USERNAME'),
         password: configuration.get<string>('DB_PASSWORD'),
         database: configuration.get<string>('DB_DATABASE'),
-        entities: [],
+        entities: [Player, Economy],
         synchronize: true,
       }),
     }),
@@ -60,6 +63,7 @@ import * as Joi from 'joi';
     }),
     CachingModule,
     PlayersModule,
+    EconomyModule,
   ],
   controllers: [],
   providers: [],

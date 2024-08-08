@@ -1,5 +1,13 @@
 import { Ranks } from 'src/common/types';
-import { Column, Entity, ManyToMany, PrimaryColumn } from 'typeorm';
+import { Economy } from 'src/economy/entities/economy.entity';
+import {
+  Column,
+  Entity,
+  OneToOne,
+  JoinColumn,
+  PrimaryColumn,
+  ManyToMany,
+} from 'typeorm';
 
 @Entity()
 export class Player {
@@ -9,8 +17,8 @@ export class Player {
   @Column({ default: Ranks.DEFAULT })
   rank: string;
 
-  @Column({ default: 0 })
-  level: number;
+  @Column({ default: null, nullable: true })
+  rank_expiration: Date;
 
   @Column({ default: new Date() })
   first_joined: Date;
@@ -18,6 +26,10 @@ export class Player {
   @Column({ default: null, nullable: true })
   last_joined: Date;
 
-  @ManyToMany(() => Player, (player) => player.uuid)
+  @ManyToMany(() => Player)
   friends: Player[];
+
+  @OneToOne(() => Economy)
+  @JoinColumn()
+  economy: Economy;
 }

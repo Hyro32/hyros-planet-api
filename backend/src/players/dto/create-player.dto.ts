@@ -1,11 +1,4 @@
-import {
-  IsDateString,
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
-import { Player } from '../entities/player.entity';
+import { IsDateString, IsEnum, IsOptional, IsString } from 'class-validator';
 import { Ranks } from 'src/common/types';
 
 export class CreatePlayerDto {
@@ -21,10 +14,6 @@ export class CreatePlayerDto {
   @IsOptional()
   rank_expiration: Date;
 
-  @IsNumber()
-  @IsOptional()
-  level: number;
-
   @IsDateString()
   @IsOptional()
   first_joined: Date;
@@ -32,7 +21,4 @@ export class CreatePlayerDto {
   @IsDateString()
   @IsOptional()
   last_joined: Date;
-
-  @IsOptional()
-  friends: Player[];
 }
