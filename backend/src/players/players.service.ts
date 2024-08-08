@@ -11,7 +11,11 @@ export class PlayersService {
     @InjectRepository(Player) private playersRepository: Repository<Player>,
   ) {}
 
-  create(createPlayerDto: CreatePlayerDto): Promise<Player> {
+  async create(createPlayerDto: CreatePlayerDto): Promise<Player> {
+    if (await this.findOne(createPlayerDto.uuid)) {
+      throw new Error('Player already exists');
+    }
+
     const player = this.playersRepository.create(createPlayerDto);
     return this.playersRepository.save(player);
   }

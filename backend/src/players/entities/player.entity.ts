@@ -1,4 +1,5 @@
 import { Ranks } from 'src/common/types';
+import { Connection } from 'src/connections/entities/connection.entity';
 import { Economy } from 'src/economy/entities/economy.entity';
 import {
   Column,
@@ -28,6 +29,10 @@ export class Player {
 
   @ManyToMany(() => Player)
   friends: Player[];
+
+  @OneToOne(() => Connection)
+  @JoinColumn()
+  connections: Connection;
 
   @OneToOne(() => Economy)
   @JoinColumn()

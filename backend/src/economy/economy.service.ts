@@ -12,6 +12,10 @@ export class EconomyService {
   ) {}
 
   async create(createEconomyDto: CreateEconomyDto): Promise<Economy> {
+    if (await this.findOne(createEconomyDto.uuid)) {
+      throw new Error('Economy already exists');
+    }
+
     const economy = this.economyRepository.create(createEconomyDto);
     return this.economyRepository.save(economy);
   }
